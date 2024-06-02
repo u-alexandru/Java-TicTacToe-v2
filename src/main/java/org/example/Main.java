@@ -1,11 +1,14 @@
 package org.example;
 
+import org.example.Interface.Board;
+
 /**
  *
  */
 public class Main {
     public static void main(String[] args) {
-        Game game = new Game(new GameTurn());
+        Board gameBoard = new GameBoard();
+        Game game = new Game(new GameTurn(gameBoard), gameBoard);
         game.startGame();
     }
 }

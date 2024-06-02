@@ -7,8 +7,9 @@ public interface Board {
     void drawBoard();
     Pieces[][] getBoard();
     void placePieceOnBoard(Pieces piece, int row, int column);
-    Boolean checkWinState(Board board, Pieces piece);
+    Boolean checkWinState(Pieces[][] boardArray, Pieces piece);
     Boolean checkWinState(Pieces piece);
-    void checkDrawState(Board board);
-    void checkDrawState();
+    Boolean checkDrawState(Board board);
+    Boolean checkDrawState();
+    Boolean checkTileEmpty(int row, char column);
 }

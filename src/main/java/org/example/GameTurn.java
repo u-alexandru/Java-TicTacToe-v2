@@ -1,51 +1,56 @@
 package org.example;
 
+import org.example.Interface.Board;
 import org.example.Interface.Turn;
 
 import java.util.Scanner;
 
 public class GameTurn implements Turn {
-    private Pieces nextToMove = Pieces.CROSS;
+    private final Board gameBoard;
 
-    private void incorrectMove() {
+    GameTurn(Board gameBoard) {
+        this.gameBoard = gameBoard;
+    }
+
+    private void incorrectMove(Pieces piece) {
         System.out.println("Incorrect move.");
-        playerMove();
+        playerMove(piece);
     }
 
     @Override
-    public void playerMove() {
+    public void playerMove(Pieces piece) {
         System.out.println("Type your desired move. Row + Column Ex. 1A");
         Scanner scanner = new Scanner(System.in);
         String playerInput = scanner.nextLine();
 
         if(playerInput.length() != 2) {
-            incorrectMove();
+            incorrectMove(piece);
             return;
         }
 
-        int row = playerInput.charAt(0);
+        int row = Character.getNumericValue(playerInput.charAt(0));
         char column = Character.toLowerCase(playerInput.charAt(1));
 
         if(row > 3 || row < 1) {
-            incorrectMove();
+            incorrectMove(piece);
             return;
         }
 
         if(column != 'a' && column != 'b' && column != 'c') {
-            incorrectMove();
+            incorrectMove(piece);
             return;
         }
 
-        // TODO: Make the move
-
+        if(gameBoard.checkTileEmpty(row, column)) {
+            gameBoard.placePieceOnBoard(piece, row, column - 96);
+            gameBoard.drawBoard();
+        } else {
+            incorrectMove(piece);
+        }
     }
 
     @Override
-    public void AIMove() {
-
-    }
-
-    public void nextTurn() {
+    public void AIMove(Pieces piece) {
 
     }
 }
